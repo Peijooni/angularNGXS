@@ -12,7 +12,7 @@
       </div>
       <div class="form-group">
         <label class="col-md-4">Time</label>
-        <input type="datetime" class="form-control" formControlName="time" #time/>
+        <input type="date" class="form-control" formControlName="time" #time/>
         <div *ngIf="angForm.controls['time'].invalid && (angForm.controls['time'].dirty || angForm.controls['time'].touched)" class="alert alert-danger">
           <div *ngIf="angForm.controls['time'].errors.required">
             Time is required.
