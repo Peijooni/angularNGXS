@@ -16,14 +16,15 @@ export class CreateComponent implements OnInit {
 
    createForm() {
     this.angForm = this.fb.group({
+      title: ['', Validators.required ],
       description: ['', Validators.required ],
       date: ['', Validators.required ]
    });
   }
 
-  addPractise(description: string, date: Date) {
+  addPractise(title: string, description: string, date: Date) {
     let id = undefined;
-    this.store.dispatch(new AddPractise({ description, date, id }));
+    this.store.dispatch(new AddPractise({ title, description, date, id }));
   }
   
   ngOnInit() {

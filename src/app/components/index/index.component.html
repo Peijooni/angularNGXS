@@ -23,15 +23,15 @@
   <mat-expansion-panel *ngFor="let practise of practises$ | async">
     <mat-expansion-panel-header>
         <mat-panel-title>
-          {{ practise.date }}
+            {{ practise.title }}
         </mat-panel-title>
-        <mat-panel-description>          
+        <mat-panel-description>
+            {{ practise.date }}      
         </mat-panel-description>
     </mat-expansion-panel-header>
-    {{ practise.description }}
-    <br />
-    <button mat-button (click)="deletePractise(practise.id)">Edit practise</button>
-    
-    <button mat-button color="warn" (click)="deletePractise(practise.id)">Remove practise</button>
+      {{ practise.description }}
+      <br />
+      <button mat-button (click)="deletePractise(practise.id)">Edit practise</button>      
+      <button mat-button color="warn" (click)="deletePractise(practise.id)">Remove practise</button>
   </mat-expansion-panel>
 </mat-accordion>

@@ -47,16 +47,13 @@ export class PractiseState {
     }
 
     @Action(InitPractises)
-    initializeStoreFromREST({getState, patchState}: StateContext<PractiseStateModel>) {
+    initializeStoreFromREST({patchState}: StateContext<PractiseStateModel>) {
         return this.http.get('http://localhost:3000/practises', {responseType: 'json'}).pipe(
             tap((info: any) => {                
                 console.log(info);
-                
-                const state = getState();
                 patchState({
                     practises: [ ...info ]
-                  });
-                  
+                  });                  
             }),
             catchError(err => err.code === 404 
                 ? throwError("Not found")
