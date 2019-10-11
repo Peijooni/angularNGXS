@@ -2,16 +2,16 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Email</th>
+        <th>Practise</th>
+        <th>Time</th>
         <th>Remove</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users | async">
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td><button (click)="deleteUser(user.id)">Remove user</button></td>
+      <tr *ngFor="let practise of practises | async">
+        <td>{{ practise.description }}</td>
+        <td>{{ practise.time }}</td>
+        <td><button (click)="deletePractise(practise.id)">Remove user</button></td>
       </tr>
     </tbody>
   </table>

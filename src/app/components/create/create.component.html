@@ -2,27 +2,27 @@
   <div class="card-body">
     <form [formGroup]="angForm">
       <div class="form-group">
-        <label class="col-md-4">Name</label>
-        <input type="text" class="form-control" formControlName="name" #name/>
-        <div *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)" class="alert alert-danger">
-          <div *ngIf="angForm.controls['name'].errors.required">
-            Name is required.
+        <label class="col-md-4">Description</label>
+        <input type="text" class="form-control" formControlName="description" #description/>
+        <div *ngIf="angForm.controls['description'].invalid && (angForm.controls['description'].dirty || angForm.controls['description'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['description'].errors.required">
+            Description is required.
           </div>
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-4">Email</label>
-        <input type="email" class="form-control" formControlName="email" #email/>
-        <div *ngIf="angForm.controls['email'].invalid && (angForm.controls['email'].dirty || angForm.controls['email'].touched)" class="alert alert-danger">
-          <div *ngIf="angForm.controls['email'].errors.required">
-            Email is required.
+        <label class="col-md-4">Time</label>
+        <input type="datetime" class="form-control" formControlName="time" #time/>
+        <div *ngIf="angForm.controls['time'].invalid && (angForm.controls['time'].dirty || angForm.controls['time'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['time'].errors.required">
+            Time is required.
           </div>
         </div>
       </div>
       <div class="form-group">
-        <button (click)="addUser(name.value, email.value)" 
+        <button (click)="addPractise(description.value, time.value)" 
             class="btn btn-primary"
-            [disabled]="angForm.pristine || angForm.invalid">Create User</button>
+            [disabled]="angForm.pristine || angForm.invalid">Create Practised</button>
       </div>
     </form>
   </div>

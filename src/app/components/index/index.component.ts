@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/models/User';
+import { Practise } from 'src/app/models/Practise';
 import { Store } from '@ngxs/store';
-import { DeleteUser } from 'src/app/actions/user.action';
+import { DeletePractise } from 'src/app/actions/practise.action';
 
 @Component({
   selector: 'app-index',
@@ -10,13 +10,13 @@ import { DeleteUser } from 'src/app/actions/user.action';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  users: Observable<User>;
+  practises: Observable<Practise>;
   constructor(private store: Store) { 
-    this.users = this.store.select(state => state.users.users);
+    this.practises = this.store.select(state => state.practises.practises);
   }
 
   deleteUser(id: string) {
-    this.store.dispatch(new DeleteUser(id));
+    this.store.dispatch(new DeletePractise(id));
   }
   ngOnInit() {
   }

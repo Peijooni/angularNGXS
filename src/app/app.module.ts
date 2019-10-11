@@ -8,8 +8,9 @@ import { AppComponent } from './app.component';
 import { CreateComponent } from './components/create/create.component';
 import { IndexComponent } from './components/index/index.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
-import { UserState } from './state/user.state';
+import { PractiseState } from './state/practise.state';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,9 @@ import { UserState } from './state/user.state';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     NgxsModule.forRoot([
-      UserState
+      PractiseState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
