@@ -1,4 +1,4 @@
-<div *ngIf="users">
+<div *ngIf="practises$">
   <table class="table table-striped">
     <thead>
       <tr>
@@ -8,10 +8,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let practise of practises | async">
+      <tr *ngFor="let practise of practises$ | async">
         <td>{{ practise.description }}</td>
-        <td>{{ practise.time }}</td>
-        <td><button (click)="deletePractise(practise.id)">Remove user</button></td>
+        <td>{{ practise.date }}</td>
+        <td><button (click)="deletePractise(practise.id)">Remove practise</button></td>
       </tr>
     </tbody>
   </table>

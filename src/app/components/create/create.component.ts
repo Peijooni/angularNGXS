@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
-import { AddPractise } from '../../actions/practise.action';
+import { AddPractise, InitPractises } from '../../actions/practise.action';
 
 @Component({
   selector: 'app-create',
@@ -17,13 +17,13 @@ export class CreateComponent implements OnInit {
    createForm() {
     this.angForm = this.fb.group({
       description: ['', Validators.required ],
-      time: ['', Validators.required ]
+      date: ['', Validators.required ]
    });
   }
 
-  addPractise(description: string, time: Date) {
+  addPractise(description: string, date: Date) {
     let id = undefined;
-    this.store.dispatch(new AddPractise({ description, time, id }));
+    this.store.dispatch(new AddPractise({ description, date, id }));
   }
   
   ngOnInit() {

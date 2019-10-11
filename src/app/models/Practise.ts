@@ -1,5 +1,5 @@
 export interface Practise {
     description: string;
-    time: Date;
+    date: Date;
     id: string;
 }

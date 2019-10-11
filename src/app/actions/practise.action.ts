@@ -13,6 +13,11 @@ export class DeletePractise {
     }
 }
 
+export class InitPractises {
+    static readonly type = '[Practise] Init';
+
+    constructor() {}
+}
 /*
 export class UpdateUser {
     static readonly type = '[User] Update';

@@ -11,16 +11,16 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-4">Time</label>
-        <input type="date" class="form-control" formControlName="time" #time/>
-        <div *ngIf="angForm.controls['time'].invalid && (angForm.controls['time'].dirty || angForm.controls['time'].touched)" class="alert alert-danger">
-          <div *ngIf="angForm.controls['time'].errors.required">
-            Time is required.
+        <label class="col-md-4">Date</label>
+        <input type="date" class="form-control" formControlName="date" #date/>
+        <div *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['date'].errors.required">
+            Date is required.
           </div>
         </div>
       </div>
       <div class="form-group">
-        <button (click)="addPractise(description.value, time.value)" 
+        <button (click)="addPractise(description.value, date.value)" 
             class="btn btn-primary"
             [disabled]="angForm.pristine || angForm.invalid">Create Practised</button>
       </div>

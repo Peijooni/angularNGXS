@@ -1,7 +1,9 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Practise } from '../models/Practise';
-import { AddPractise, DeletePractise } from '../actions/practise.action';
+import { AddPractise, DeletePractise, InitPractises } from '../actions/practise.action';
+import { tap, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 export interface PractiseStateModel {
     practises: Practise[];
@@ -15,21 +17,7 @@ export interface PractiseStateModel {
 })
 export class PractiseState {
 
-    generateUUID() { // Public Domain/MIT
-        var d = new Date().getTime();//Timestamp
-        var d2 = (performance && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16;//random number between 0 and 16
-            if(d > 0){//Use timestamp until depleted
-                r = (d + r)%16 | 0;
-                d = Math.floor(d/16);
-            } else {//Use microseconds since page-load if supported
-                r = (d2 + r)%16 | 0;
-                d2 = Math.floor(d2/16);
-            }
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-    }
+    constructor(private http: HttpClient){}
 
     @Selector()
     static getPractises(state: PractiseStateModel) {
@@ -37,13 +25,43 @@ export class PractiseState {
     }
 
     @Action(AddPractise)
-    add({getState, patchState }: StateContext<PractiseStateModel>, action : AddPractise) {
-        const state = getState();
-        action.payload.id = this.generateUUID();
-        // http.POST(payload);
-        patchState({
-            practises: [...state.practises, action.payload]
-        });
+    add({getState, patchState}: StateContext<PractiseStateModel>, action : AddPractise) {
+        let practise = action.payload;
+        return this.http.post('http://localhost:3000/practises', practise).pipe(
+            tap((info: any) => {                
+                if(info.id === undefined) {                    
+                    console.error("got from REST", info);
+                    throw new Error("no ID returned");
+                }
+                practise.id = info.id;
+                const state = getState();
+                patchState({
+                    practises: [ ...state.practises, practise ]
+                  });
+            
+            }),
+            catchError(err => err.code === 404 
+                ? throwError("Not found")
+                : throwError(err))
+            );
+    }
+
+    @Action(InitPractises)
+    initializeStoreFromREST({getState, patchState}: StateContext<PractiseStateModel>) {
+        return this.http.get('http://localhost:3000/practises', {responseType: 'json'}).pipe(
+            tap((info: any) => {                
+                console.log(info);
+                
+                const state = getState();
+                patchState({
+                    practises: [ ...info ]
+                  });
+                  
+            }),
+            catchError(err => err.code === 404 
+                ? throwError("Not found")
+                : throwError(err))
+            );
     }
 
     @Action(DeletePractise)
