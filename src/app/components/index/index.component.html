@@ -31,7 +31,7 @@
     </mat-expansion-panel-header>
       {{ practise.description }}
       <br />
-      <button mat-button (click)="deletePractise(practise.id)">Edit practise</button>      
+      <button mat-button (click)="openDialog(practise)">Edit practise</button>      
       <button mat-button color="warn" (click)="deletePractise(practise.id)">Remove practise</button>
   </mat-expansion-panel>
 </mat-accordion>

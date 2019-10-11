@@ -19,8 +19,8 @@ export class CreateComponent implements OnInit {
       title: ['', Validators.required ],
       description: ['', Validators.required ],
       date: ['', Validators.required ]
-   });
-  }
+    });
+    }
 
   addPractise(title: string, description: string, date: Date) {
     let id = undefined;

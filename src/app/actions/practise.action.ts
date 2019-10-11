@@ -18,10 +18,9 @@ export class InitPractises {
 
     constructor() {}
 }
-/*
-export class UpdateUser {
+
+export class UpdatePractise {
     static readonly type = '[User] Update';
 
-    constructor(public id: string, public payload: User) {}
+    constructor(public payload: Practise) {}
 }
-*/

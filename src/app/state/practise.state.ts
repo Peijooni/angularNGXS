@@ -1,6 +1,6 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Practise } from '../models/Practise';
-import { AddPractise, DeletePractise, InitPractises } from '../actions/practise.action';
+import { AddPractise, DeletePractise, InitPractises, UpdatePractise } from '../actions/practise.action';
 import { tap, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { throwError } from 'rxjs';
@@ -25,7 +25,7 @@ export class PractiseState {
     }
 
     @Action(AddPractise)
-    add({getState, patchState}: StateContext<PractiseStateModel>, action : AddPractise) {
+    add({getState, patchState}: StateContext<PractiseStateModel>, action: AddPractise) {
         let practise = action.payload;
         return this.http.post('http://localhost:3000/practises', practise).pipe(
             tap((info: any) => {                
@@ -72,11 +72,26 @@ export class PractiseState {
         });
     }
 
-    /*
-    @Action(UpdateUser)
-    updateUser({getState, setState}: StateContext<UserStateModel>, {id}: DeleteUser) {        
+    
+    @Action(UpdatePractise)
+    updateUser({getState, setState}: StateContext<PractiseStateModel>, action: UpdatePractise) {
+        console.log(action);
+        /*       
         const state = getState();
-        const filteredArray = state.users.filter(item => item.id !== id);
+        const filteredArray = state.practises.filter(item => item.id !== id);
+        // http.DELETE(id)
+        setState({
+            ...state,
+            users: filteredArray,
+        });
+        */
+    }
+
+    /*
+        @Action(UpdatePractise)
+    updateUser({getState, setState}: StateContext<PractiseStateModel>, action: UpdatePractise) {        
+        const state = getState();
+        const filteredArray = state.practises.filter(item => item.id !== id);
         // http.DELETE(id)
         setState({
             ...state,
@@ -84,6 +99,7 @@ export class PractiseState {
         });
     }
     */
+    
 
 
 }

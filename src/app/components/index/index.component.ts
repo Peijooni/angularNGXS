@@ -2,7 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Practise } from 'src/app/models/Practise';
 import { Store } from '@ngxs/store';
-import { DeletePractise, InitPractises } from 'src/app/actions/practise.action';
+import { DeletePractise, InitPractises, UpdatePractise } from 'src/app/actions/practise.action';
+import { MatDialog } from '@angular/material/dialog';
+import { EditPractiseComponent } from '../dialogs/edit-practise/edit-practise.component';
+
+/*
+export interface DialogData {
+  practise: Practise;
+}
+*/
 
 @Component({
   selector: 'app-index',
@@ -11,10 +19,25 @@ import { DeletePractise, InitPractises } from 'src/app/actions/practise.action';
 })
 export class IndexComponent implements OnInit {
   practises$: Observable<Practise>;
-  constructor(private store: Store) {     
+  constructor(private store: Store, public dialog: MatDialog) {     
   }
 
-  deleteUser(id: string) {
+  openDialog(practise: Practise): void {
+    const dialogRef = this.dialog.open(EditPractiseComponent, {
+      height: '400px',
+      width: '600px',
+      data: practise
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if(result !== undefined) {
+        this.store.dispatch(new UpdatePractise(result as Practise));
+      }
+    });
+  }
+
+  deleteUser(id: string): void {
     this.store.dispatch(new DeletePractise(id));
     //this.http.get('http://localhost:3000').subscribe(testi => {console.log(testi)});
   }

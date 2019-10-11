@@ -1,0 +1,38 @@
+<p>
+  edit-practise works! {{data.id}}
+</p>
+
+<form [formGroup]="angForm">
+    <div class="form-group">
+        <label>Name of practise</label>
+        <input type="text" class="form-control" formControlName="title" #title/>
+        <div *ngIf="angForm.controls['title'].invalid && (angForm.controls['title'].dirty || angForm.controls['title'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['title'].errors.required">
+            Title is required.
+          </div>
+        </div>
+      </div>
+  <div class="form-group">
+    <label>Description</label>
+    <input type="text" class="form-control" formControlName="description" #description/>
+    <div *ngIf="angForm.controls['description'].invalid && (angForm.controls['description'].dirty || angForm.controls['description'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['description'].errors.required">
+        Description is required.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Date</label>
+    <input type="date" class="form-control" formControlName="date" #date/>
+    <div *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['date'].errors.required">
+        Date is required.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <button mat-button (click)="savePractise()" 
+        [disabled]="angForm.pristine || angForm.invalid">Save Practised</button>
+        <button mat-button (click)="cancel()">Cancel</button>
+  </div>
+</form>
