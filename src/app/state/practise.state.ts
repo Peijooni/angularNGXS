@@ -49,8 +49,7 @@ export class PractiseState {
     @Action(InitPractises)
     initializeStoreFromREST({patchState}: StateContext<PractiseStateModel>) {
         return this.http.get('http://localhost:3000/practises', {responseType: 'json'}).pipe(
-            tap((info: any) => {                
-                console.log(info);
+            tap((info: any) => {        
                 patchState({
                     practises: [ ...info ]
                   });                  

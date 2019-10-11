@@ -20,7 +20,7 @@ export class InitPractises {
 }
 
 export class UpdatePractise {
-    static readonly type = '[User] Update';
+    static readonly type = '[Practise] Update';
 
     constructor(public payload: Practise) {}
 }
