@@ -42,7 +42,6 @@ export class IndexComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log("on init");
     this.store.dispatch(new InitPractises());
     this.practises$ = this.store.select(state => state.practises.practises);
   }
