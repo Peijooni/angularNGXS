@@ -35,8 +35,18 @@ export class PractiseState {
                 }
                 practise.id = info.id;
                 const state = getState();
+                let newPractises = [...state.practises, practise];
+                newPractises.sort(function(a: Practise, b: Practise){
+                    if(a.date > b.date) {
+                        return -1;
+                    }
+                    if(a.date < b.date) {
+                        return 1;
+                    }
+                    return 0;
+                });
                 patchState({
-                    practises: [ ...state.practises, practise ]
+                    practises: [ ...newPractises ]
                   });
             
             }),

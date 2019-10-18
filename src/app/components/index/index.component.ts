@@ -30,7 +30,6 @@ export class IndexComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       if(result !== undefined) {
         this.store.dispatch(new UpdatePractise(result as Practise));
       }
@@ -39,11 +38,11 @@ export class IndexComponent implements OnInit {
 
   deletePractise(id: string): void {
     this.store.dispatch(new DeletePractise(id));
-    //this.http.get('http://localhost:3000').subscribe(testi => {console.log(testi)});
   }
 
 
   ngOnInit() {
+    console.log("on init");
     this.store.dispatch(new InitPractises());
     this.practises$ = this.store.select(state => state.practises.practises);
   }
