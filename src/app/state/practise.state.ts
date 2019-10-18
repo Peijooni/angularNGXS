@@ -61,20 +61,54 @@ export class PractiseState {
     }
 
     @Action(DeletePractise)
-    deleteUser({getState, setState}: StateContext<PractiseStateModel>, {id}: DeletePractise) {        
-        const state = getState();
-        const filteredArray = state.practises.filter(item => item.id !== id);
-        // http.DELETE(id)
-        setState({
-            ...state,
-            practises: filteredArray,
-        });
+    deletePractise({getState, patchState}: StateContext<PractiseStateModel>, {id}: DeletePractise) {
+        return this.http.delete('http://localhost:3000/practises/'+id, {responseType: 'json'})
+            .pipe(
+                tap((info: any) => {
+                    if(info.id === undefined) {                    
+                        console.error("got from REST", info);
+                        throw new Error("no ID returned");
+                    }
+                    const state = getState();
+                    const filteredArray = state.practises.filter(item => item.id !== id); 
+                    patchState({
+                        practises: [ ...filteredArray ]
+                    });                  
+                }),
+                catchError(err => err.code === 404 
+                    ? throwError("Not found")
+                    : throwError(err))
+                );
     }
 
     
     @Action(UpdatePractise)
-    updateUser({getState, setState}: StateContext<PractiseStateModel>, action: UpdatePractise) {
+    updatePractise({getState, patchState}: StateContext<PractiseStateModel>, action: UpdatePractise) {
         console.log(action);
+        const practise = action.payload;
+        const id = practise.id;
+        return this.http.put('http://localhost:3000/practises/'+id, practise).pipe(
+            tap((info: any) => {                
+                if(info.id === undefined) {                    
+                    console.error("got from REST", info);
+                    throw new Error("no ID returned");
+                }
+                const state = getState();
+                state.practises.forEach((item) => { 
+                    if (item.id === id) {
+                        item = practise;
+                    }                  
+                    });
+                patchState({
+                    practises: [ ...state.practises ]
+                  });
+            
+            }),
+            catchError(err => err.code === 404 
+                ? throwError("Not found")
+                : throwError(err))
+            );
+    }
         /*       
         const state = getState();
         const filteredArray = state.practises.filter(item => item.id !== id);
@@ -84,7 +118,6 @@ export class PractiseState {
             users: filteredArray,
         });
         */
-    }
 
     /*
         @Action(UpdatePractise)

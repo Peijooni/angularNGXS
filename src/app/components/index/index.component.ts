@@ -19,7 +19,7 @@ export interface DialogData {
 })
 export class IndexComponent implements OnInit {
   practises$: Observable<Practise>;
-  constructor(private store: Store, public dialog: MatDialog) {     
+  constructor(private store: Store, public dialog: MatDialog) {
   }
 
   openDialog(practise: Practise): void {
@@ -37,7 +37,7 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  deleteUser(id: string): void {
+  deletePractise(id: string): void {
     this.store.dispatch(new DeletePractise(id));
     //this.http.get('http://localhost:3000').subscribe(testi => {console.log(testi)});
   }

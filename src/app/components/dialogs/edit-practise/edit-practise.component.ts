@@ -14,7 +14,6 @@ export class EditPractiseComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
     ) {
-      console.log("Tämä",this.data);
       this.createForm();
     }
 
@@ -22,7 +21,7 @@ export class EditPractiseComponent implements OnInit {
     this.angForm = this.fb.group({
       title: [this.data.title, Validators.required ],
       description: [this.data.description, Validators.required ],
-      date: [this.data.date, Validators.required ]
+      date: [this.data.date.substr(0, 10), Validators.required ]
     });
   }
 
