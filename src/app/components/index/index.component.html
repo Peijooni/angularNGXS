@@ -1,18 +1,37 @@
-<div *ngIf="users">
+<!--
+<div *ngIf="practises$">
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Email</th>
+        <th>Practise</th>
+        <th>Time</th>
         <th>Remove</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users | async">
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td><button (click)="deleteUser(user.id)">Remove user</button></td>
+      <tr *ngFor="let practise of practises$ | async">
+        <td>{{ practise.description }}</td>
+        <td>{{ practise.date }}</td>
+        <td><button (click)="deletePractise(practise.id)">Remove practise</button></td>
       </tr>
     </tbody>
   </table>
 </div>
+-->
+<h1>Practises</h1>
+<mat-accordion *ngIf="practises$">
+  <mat-expansion-panel *ngFor="let practise of practises$ | async">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{ practise.title }}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{ practise.date }}      
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    {{ practise.description }}
+    <br />
+    <button mat-button (click)="openDialog(practise)">Edit practise</button>      
+    <button mat-button color="warn" (click)="deletePractise(practise.id)">Remove practise</button>
+  </mat-expansion-panel>
+</mat-accordion>
