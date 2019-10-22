@@ -1,7 +1,14 @@
-<<<<<<< HEAD
-# Ng6xs
+# Angular UI
+This project is an UI for backen which can be found here: https://github.com/Peijooni/backend There is also React UI available. IT can be found here: xxxxxxxxxxx
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+
+## Used technologies and included packages
+* NGXS
+* Angular Material
+* Angular Animations
+* HammerJS
+	
 
 ## Development server
 
@@ -23,10 +30,3 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-=======
-# angularNGXS
-NGXS program in Angular
->>>>>>> 85209f9fbdc1786310d54d56e7751b4de2ddde1c
