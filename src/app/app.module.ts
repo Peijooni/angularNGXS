@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { CreateComponent } from './components/create/create.component';
@@ -18,13 +19,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CompoundComponent } from './components/compound/compound.component';
+import { LoginComponent } from './components/login/login.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateComponent,
     IndexComponent,
-    EditPractiseComponent
+    EditPractiseComponent,
+    CompoundComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +44,12 @@ import {MatDialogModule} from '@angular/material/dialog';
     BrowserAnimationsModule,
     MatExpansionModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    RouterModule.forRoot([
+      { path: 'app', component: CompoundComponent },
+      { path: 'login', component: LoginComponent },
+      { path: '**', component: LoginComponent }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent],
