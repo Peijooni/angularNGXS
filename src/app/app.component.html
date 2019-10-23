@@ -1,11 +1,12 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <app-create></app-create>
-    </div>
-    <div class="col-md-6">
-      <app-index></app-index>
-    </div>
-  </div>
+<div style="text-align:center">
+  <h1>
+    Welcome to {{title}}!!
+  </h1>
+  <!-- Remove nav when ready! -->
+  <nav>
+    <a routerLink="testi" routerLinkActive="active">Testi</a>
+    <a routerLink="app">App</a>
+  </nav>
+  <router-outlet></router-outlet>
 </div>
 
