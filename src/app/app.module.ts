@@ -4,6 +4,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { RouterModule } from '@angular/router';
+import { AuthGuardService } from './guards/auth-guard.service';
 
 import { AppComponent } from './app.component';
 import { CreateComponent } from './components/create/create.component';
@@ -46,12 +47,13 @@ import { LoginComponent } from './components/login/login.component';
     MatButtonModule,
     MatDialogModule,
     RouterModule.forRoot([
-      { path: 'app', component: CompoundComponent },
+      { path: 'app', component: CompoundComponent, canActivate: [AuthGuardService],
+       pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: '**', component: LoginComponent }
     ])
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent],
   entryComponents: [
     EditPractiseComponent
