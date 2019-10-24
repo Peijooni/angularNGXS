@@ -22,6 +22,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CompoundComponent } from './components/compound/compound.component';
 import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { LoginComponent } from './components/login/login.component';
     IndexComponent,
     EditPractiseComponent,
     CompoundComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,7 @@ import { LoginComponent } from './components/login/login.component';
       { path: 'app', component: CompoundComponent, canActivate: [AuthGuardService],
        pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
+      { path: 'logout', component: LogoutComponent },
       { path: '**', component: LoginComponent }
     ])
   ],

@@ -1,18 +1,20 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Practise } from '../models/Practise';
-import { AddPractise, DeletePractise, InitPractises, UpdatePractise } from '../actions/practise.action';
+import { AddPractise, DeletePractise, InitPractises, UpdatePractise, LogIn, LogOut } from '../actions/practise.action';
 import { tap, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { throwError } from 'rxjs';
 
 export interface PractiseStateModel {
     practises: Practise[];
+    access_token: string;
 }
 
 @State<PractiseStateModel>({
     name: 'practises',
     defaults: {
-        practises: []
+        practises: [],
+        access_token: null
     }
 })
 export class PractiseState {
@@ -28,7 +30,7 @@ export class PractiseState {
     add({getState, patchState}: StateContext<PractiseStateModel>, action: AddPractise) {
         let practise = action.payload;
         return this.http.post('http://localhost:3000/practises', practise).pipe(
-            tap((info: any) => {                
+            tap((info: any) => {          
                 if(info.id === undefined) {                    
                     console.error("got from REST", info);
                     throw new Error("no ID returned");
@@ -118,6 +120,20 @@ export class PractiseState {
                 ? throwError("Not found")
                 : throwError(err))
             );
+    }
+
+    @Action(LogIn)
+    logIn({patchState}: StateContext<PractiseStateModel>, action: any) {
+        patchState({
+            access_token:  action.payload
+            });   
+    }
+
+    @Action(LogOut)
+    logOut({patchState}: StateContext<PractiseStateModel>) {
+        patchState({
+            access_token: null
+            });   
     }
         /*       
         const state = getState();

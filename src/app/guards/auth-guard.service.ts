@@ -1,25 +1,35 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { Store } from '@ngxs/store';
+import { tap, take, map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
 
-  constructor(private _router: Router, private http: HttpClient) {
+  constructor(private _router: Router, private store: Store) {
   }
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    
-    if (true) {
+  async getFromStore() {
+    let res: any;
+
+    await this.store.select(state => state.practises.access_token)
+    .pipe(take(1))
+    .toPromise()
+    .then(data => res = data);
+    return res;
+  }
+
+  async canActivate() {    
+    const token =  this.getFromStore();
+    return await token.then(data => {
+      if(data !== null) {
         return true;
-    }
-
-    // navigate to login page
-    this._router.navigate(['/login']);
-    // you can save redirect url so after authing we can move them back to the page they requested
-    return false;
+      } else {
+        this._router.navigate(['/login']);
+        return false;      
+      }
+    });
   }
-
 }

@@ -24,3 +24,15 @@ export class UpdatePractise {
 
     constructor(public payload: Practise) {}
 }
+
+export class LogIn {
+    static readonly type = '[LogIn] LoggedIn';
+
+    constructor(public payload: string) {}
+}
+
+export class LogOut {
+    static readonly type = '[LogIn] LoggedOut';
+
+    constructor() {}
+}
