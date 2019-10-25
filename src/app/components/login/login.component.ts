@@ -21,9 +21,21 @@ export class LoginComponent implements OnInit {
             if(data === false) {
               this.store.dispatch(new LogOut());
               this._router.navigate(['/login']);
-            } else {  
-              this.store.dispatch(new LogIn( data ));
-              this._router.navigate(['/app']);
+            } else {
+              // check if new user is in need to be created
+              this.userExists(data).then(info => {
+                console.log("From userExists: ",info);
+                if(info) {
+                  this.store.dispatch(new LogIn( data ));
+                  this._router.navigate(['/app']);
+                } else {
+                    this.createUser(data).then(info => {
+                    console.log("created new user with id: ", info);
+                    this.store.dispatch(new LogIn( data ));
+                    this._router.navigate(['/app']);
+                  })
+                }
+              })               
             }
           }).catch(error => console.error(error));
         } catch (error) {
@@ -33,33 +45,27 @@ export class LoginComponent implements OnInit {
   });
   }
 
+  userExists = async (token: string): Promise<boolean> => {
+    const res = await axios.get('http://localhost:3000/userExists?token='+token);
+    return res.data.userExists;
+  }
+
+  createUser = async (token: string): Promise<boolean> => {
+    const userId = {
+      userId: token
+    }
+    const res = await axios.post('http://localhost:3000/createUser?token='+token, userId);
+    return res.data.id;
+  }
+
+
   getToken = async (code: string): Promise<any>  => {
     const body = {
       client_id: '1159e004bdfd8fd0d590',
       client_secret: 'daa9d17cefe8ca51591ae9b06601541b260c70db',
       code: code
     }
-    
-    /*
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest'
-    });
-    let options = { headers: headers };
-    this.http.post('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', body, options)
-    .subscribe((data: any) => {
-      console.log(data);
-      if(data.access_token) {
-        console.log(data.access_token);
-        this.store.dispatch(new LogIn( data.access_token ));
-      } 
-        console.log(data.error);
-        this.store.dispatch(new LogOut());
-        return false;
-      
-    });
-    */
-    
+        
     let res = await axios.post('https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token', body);
     let splitted = res.data.split("&");
     splitted = splitted[0].split("=");
