@@ -1,7 +1,6 @@
 export interface Practise {
-    id: string;
+    id: number;
     title: string;
     description: string;
-    date: Date;
-    
+    date: Date;    
 }

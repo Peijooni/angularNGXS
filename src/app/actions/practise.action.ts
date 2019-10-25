@@ -9,7 +9,7 @@ export class AddPractise {
 export class DeletePractise {
     static readonly type = '[Practise] Delete';
 
-    constructor(public id: string) {
+    constructor(public id: number) {
     }
 }
 
@@ -23,4 +23,16 @@ export class UpdatePractise {
     static readonly type = '[Practise] Update';
 
     constructor(public payload: Practise) {}
+}
+
+export class LogIn {
+    static readonly type = '[LogIn] LoggedIn';
+
+    constructor(public payload: string) {}
+}
+
+export class LogOut {
+    static readonly type = '[LogIn] LoggedOut';
+
+    constructor() {}
 }
