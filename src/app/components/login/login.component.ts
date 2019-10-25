@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
             } else {
               // check if new user is in need to be created
               this.userExists(data).then(info => {
-                console.log("From userExists: ",info);
                 if(info) {
                   this.store.dispatch(new LogIn( data ));
                   this._router.navigate(['/app']);
