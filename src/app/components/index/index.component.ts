@@ -36,7 +36,7 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  deletePractise(id: string): void {
+  deletePractise(id: number): void {
     this.store.dispatch(new DeletePractise(id));
   }
 

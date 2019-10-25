@@ -9,7 +9,7 @@ export class AddPractise {
 export class DeletePractise {
     static readonly type = '[Practise] Delete';
 
-    constructor(public id: string) {
+    constructor(public id: number) {
     }
 }
 

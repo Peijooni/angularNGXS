@@ -11,8 +11,8 @@ export class AuthGuardService implements CanActivate {
   constructor(private _router: Router, private store: Store) {
   }
 
-  async getFromStore() {
-    let res: any;
+  async getTokenFromStore(): Promise<any> {
+    let res: string;
 
     await this.store.select(state => state.practises.access_token)
     .pipe(take(1))
@@ -21,8 +21,8 @@ export class AuthGuardService implements CanActivate {
     return res;
   }
 
-  async canActivate() {    
-    const token =  this.getFromStore();
+  async canActivate(): Promise<boolean> {    
+    const token =  this.getTokenFromStore();
     return await token.then(data => {
       if(data !== null) {
         return true;

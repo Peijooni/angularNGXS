@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   });
   }
 
-  getToken = async (code: string)  => {
+  getToken = async (code: string): Promise<any>  => {
     const body = {
       client_id: '1159e004bdfd8fd0d590',
       client_secret: 'daa9d17cefe8ca51591ae9b06601541b260c70db',
