@@ -40,6 +40,9 @@ export class LoginComponent implements OnInit {
         } catch (error) {
           console.error(error);
         }
+      } else {
+        // redirect to github-login
+        window.location.replace("http://github.com/login/oauth/authorize?client_id=1159e004bdfd8fd0d590&redirect_uri=http://localhost:4200/login");
       }
   });
   }

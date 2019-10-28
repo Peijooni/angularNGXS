@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
-import { AddPractise, InitPractises } from '../../actions/practise.action';
+import { AddPractise } from '../../actions/practise.action';
 
 @Component({
   selector: 'app-create',

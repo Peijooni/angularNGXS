@@ -20,6 +20,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+
 import { CompoundComponent } from './components/compound/compound.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
@@ -48,12 +51,14 @@ import { LogoutComponent } from './components/logout/logout.component';
     MatExpansionModule,
     MatButtonModule,
     MatDialogModule,
+    MatToolbarModule,
+    MatIconModule,
     RouterModule.forRoot([
       { path: 'app', component: CompoundComponent, canActivate: [AuthGuardService],
        pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'logout', component: LogoutComponent },
-      { path: '**', component: LoginComponent }
+      { path: '**', component: LogoutComponent }
     ])
   ],
   providers: [AuthGuardService],
