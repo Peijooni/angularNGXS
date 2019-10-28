@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import axios from 'axios';
 import { Store } from '@ngxs/store';
 import { LogIn, LogOut } from 'src/app/actions/practise.action';
+import { environment } from './../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,9 @@ import { LogIn, LogOut } from 'src/app/actions/practise.action';
 })
 export class LoginComponent implements OnInit {
 
+  APIEndpoint: any;
   constructor(private _router: Router, private store: Store, private activatedRoute: ActivatedRoute) {
+    this.APIEndpoint = environment.APIEndpoint;
     this.activatedRoute.queryParams.subscribe(params => {
       const code = params['code'];
       if(code !== undefined && code.length) {
@@ -48,7 +51,7 @@ export class LoginComponent implements OnInit {
   }
 
   userExists = async (token: string): Promise<boolean> => {
-    const res = await axios.get('http://localhost:3000/userExists?token='+token);
+    const res = await axios.get(this.APIEndpoint+'/userExists?token='+token);
     return res.data.userExists;
   }
 
@@ -56,7 +59,7 @@ export class LoginComponent implements OnInit {
     const userId = {
       userId: token
     }
-    const res = await axios.post('http://localhost:3000/createUser?token='+token, userId);
+    const res = await axios.post(this.APIEndpoint+'/createUser?token='+token, userId);
     return res.data.id;
   }
 
