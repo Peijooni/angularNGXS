@@ -22,7 +22,7 @@ export interface PractiseStateModel {
 export class PractiseState {
 
     APIEndpoint: any;
-    constructor(private store: Store, private _router: Router){
+    constructor(private store: Store, private router: Router) {
         this.APIEndpoint = environment.APIEndpoint;
     }
 
@@ -45,18 +45,17 @@ export class PractiseState {
     async getHttpGETData(): Promise<any> {
         try {
             return await this.getTokenFromStore().then(data => {
-                if(data !== null) {
-                    return axios.get(this.APIEndpoint+'/practises?token='+data);
+                if (data !== null) {
+                    return axios.get(this.APIEndpoint + '/practises?token=' + data);
                 } else {
                     // We should never go here
-                    console.log("Not logged in");
+                    console.log('Not logged in');
                     this.store.dispatch(new LogOut());
-                    this._router.navigate(['/login']);       
-                }            
+                    this.router.navigate(['/login']);
+                }
             })
             .catch(err => console.error(err));
-        }
-        catch(err) {
+        } catch (err) {
             console.error(err);
         }
     }
@@ -64,18 +63,17 @@ export class PractiseState {
     async postHttpPOSTData(practise: object): Promise<any> {
         try {
             return await this.getTokenFromStore().then(data => {
-                if(data !== null) {
-                    return axios.post(this.APIEndpoint+'/practises?token='+data, practise);                
+                if (data !== null) {
+                    return axios.post(this.APIEndpoint + '/practises?token=' + data, practise);
                 } else {
                     // We should never go here
-                    console.log("Not logged in");
+                    console.log('Not logged in');
                     this.store.dispatch(new LogOut());
-                    this._router.navigate(['/login']);       
-                }            
+                    this.router.navigate(['/login']);
+                }
             })
             .catch(err => console.error(err));
-        }
-        catch(err) {
+        } catch (err) {
             console.error(err);
         }
     }
@@ -83,18 +81,17 @@ export class PractiseState {
     async deleteHttpDELETEData(id: number): Promise<any> {
         try {
             return await this.getTokenFromStore().then(data => {
-                if(data !== null) {
-                    return axios.delete(this.APIEndpoint+'/practises/' + id +'?token='+data);                
+                if (data !== null) {
+                    return axios.delete(this.APIEndpoint + '/practises/' + id + '?token=' + data);
                 } else {
                     // We should never go here
-                    console.log("Not logged in");
+                    console.log('Not logged in');
                     this.store.dispatch(new LogOut());
-                    this._router.navigate(['/login']);       
-                }            
+                    this.router.navigate(['/login']);
+                }
             })
             .catch(err => console.error(err));
-        }
-        catch(err) {
+        } catch (err) {
             console.error(err);
         }
     }
@@ -102,18 +99,17 @@ export class PractiseState {
     async updateHttpPUTData(id: number, practise: object): Promise<any> {
         try {
             return await this.getTokenFromStore().then(data => {
-                if(data !== null) {
-                    return axios.put(this.APIEndpoint+'/practises/' + id +'?token='+data, practise);                
+                if (data !== null) {
+                    return axios.put(this.APIEndpoint + '/practises/' + id + '?token=' + data, practise);
                 } else {
                     // We should never go here
-                    console.log("Not logged in");
+                    console.log('Not logged in');
                     this.store.dispatch(new LogOut());
-                    this._router.navigate(['/login']);       
-                }            
+                    this.router.navigate(['/login']);
+                }
             })
             .catch(err => console.error(err));
-        }
-        catch(err) {
+        } catch (err) {
             console.error(err);
         }
     }
@@ -121,35 +117,35 @@ export class PractiseState {
     @Action(InitPractises)
     initializeStoreFromREST({patchState}: StateContext<PractiseStateModel>) {
         this.getHttpGETData().then((data: any) => {
-            if(Array.isArray(data.data) && data.data.length) {
+            if (Array.isArray(data.data) && data.data.length) {
                 patchState({
                     practises: [ ...data.data ]
-                });       
+                });
             } else {
-                console.log("Got no practises from REST server");
-            }     
-            }).catch(err => err.code === 404 
-                ? throwError("Not found")
+                console.log('Got no practises from REST server');
+            }
+            }).catch(err => err.code === 404
+                ? throwError('Not found')
                 : throwError(err)
                 );
     }
 
     @Action(AddPractise)
     add({getState, patchState}: StateContext<PractiseStateModel>, action: AddPractise) {
-        let practise = action.payload;
-        this.postHttpPOSTData(practise).then((info: any) => {  
-            if(info.data.id === undefined) {                    
-                console.error("got from REST", info.data);
-                throw new Error("no ID returned");
+        const practise = action.payload;
+        this.postHttpPOSTData(practise).then((info: any) => {
+            if (info.data.id === undefined) {
+                console.error('got from REST', info.data);
+                throw new Error('no ID returned');
             }
             practise.id = info.data.id;
             const state = getState();
-            let newPractises = [...state.practises, practise];
-            newPractises.sort(function(a: Practise, b: Practise){
-                if(a.date > b.date) {
+            const newPractises = [...state.practises, practise];
+            newPractises.sort((a: Practise, b: Practise) => {
+                if (a.date > b.date) {
                     return -1;
                 }
-                if(a.date < b.date) {
+                if (a.date < b.date) {
                     return 1;
                 }
                 return 0;
@@ -157,54 +153,54 @@ export class PractiseState {
             patchState({
                 practises: [ ...newPractises ]
             });
-        
+
         })
-        .catch(err => err.code === 404 
-            ? throwError("Not found")
+        .catch(err => err.code === 404
+            ? throwError('Not found')
             : throwError(err));
-    }    
+    }
 
     @Action(DeletePractise)
     deletePractise({getState, patchState}: StateContext<PractiseStateModel>, {id}: DeletePractise) {
         this.deleteHttpDELETEData(id).then((info: any) => {
-            if(info.data.id === undefined) {                  
-                console.error("got from REST", info.data);
-                throw new Error("no ID returned");
+            if (info.data.id === undefined) {
+                console.error('got from REST', info.data);
+                throw new Error('no ID returned');
             }
             const state = getState();
             const filteredArray = state.practises.filter(item => item.id !== id);
             patchState({
                 practises: [ ...filteredArray ]
-            });                  
+            });
         })
-        .catch(err => err.code === 404 
-            ? throwError("Not found")
+        .catch(err => err.code === 404
+            ? throwError('Not found')
             : throwError(err));
     }
 
-    
+
     @Action(UpdatePractise)
     updatePractise({getState, patchState}: StateContext<PractiseStateModel>, action: UpdatePractise) {
         const practise = action.payload;
         const id = practise.id;
-        this.updateHttpPUTData(id, practise).then((info: any) => {                
-            if(info.data.id === undefined) {                    
-                console.error("got from REST", info.data);
-                throw new Error("no ID returned");
+        this.updateHttpPUTData(id, practise).then((info: any) => {
+            if (info.data.id === undefined) {
+                console.error('got from REST', info.data);
+                throw new Error('no ID returned');
             }
             const state = getState();
-            state.practises.forEach((item) => { 
+            state.practises.forEach((item) => {
                 if (item.id === id) {
                     item = practise;
-                }                  
+                }
             });
             patchState({
                 practises: [ ...state.practises ]
             });
-        
+
         })
-        .catch(err => err.code === 404 
-            ? throwError("Not found")
+        .catch(err => err.code === 404
+            ? throwError('Not found')
             : throwError(err));
     }
 
@@ -212,13 +208,13 @@ export class PractiseState {
     logIn({patchState}: StateContext<PractiseStateModel>, action: any) {
         patchState({
             access_token:  action.payload
-        });   
+        });
     }
 
     @Action(LogOut)
     logOut({patchState}: StateContext<PractiseStateModel>) {
         patchState({
             access_token: null
-        });   
+        });
     }
 }

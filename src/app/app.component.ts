@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 
@@ -8,7 +8,7 @@ import { Store } from '@ngxs/store';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Harjoituspäiväkirja';
   loggedIn$: Observable<boolean>;
 

@@ -8,7 +8,7 @@ import { tap, take, map } from 'rxjs/operators';
 export class AuthGuardService implements CanActivate {
 
 
-  constructor(private _router: Router, private store: Store) {
+  constructor(private router: Router, private store: Store) {
   }
 
   async getTokenFromStore(): Promise<any> {
@@ -17,14 +17,14 @@ export class AuthGuardService implements CanActivate {
     .toPromise();
   }
 
-  async canActivate(): Promise<boolean> {    
+  async canActivate(): Promise<boolean> {
     const token =  this.getTokenFromStore();
     return await token.then(data => {
-      if(data !== null) {
+      if (data !== null) {
         return true;
       } else {
-        this._router.navigate(['/logout']);
-        return false;      
+        this.router.navigate(['/logout']);
+        return false;
       }
     });
   }

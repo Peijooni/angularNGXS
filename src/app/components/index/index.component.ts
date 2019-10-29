@@ -24,7 +24,7 @@ export class IndexComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result !== undefined) {
+      if (result !== undefined) {
         this.store.dispatch(new UpdatePractise(result as Practise));
       }
     });

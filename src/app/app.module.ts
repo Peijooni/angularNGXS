@@ -44,7 +44,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     HttpClientModule,
     NgxsModule.forRoot([
       PractiseState
-    ]),    
+    ]),
     NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),

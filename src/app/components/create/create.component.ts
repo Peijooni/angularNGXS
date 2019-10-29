@@ -23,10 +23,10 @@ export class CreateComponent implements OnInit {
     }
 
   addPractise(title: string, description: string, date: Date) {
-    let id = undefined;
+    const id: number = undefined;
     this.store.dispatch(new AddPractise({ title, description, date, id }));
   }
-  
+
   ngOnInit() {
   }
 
