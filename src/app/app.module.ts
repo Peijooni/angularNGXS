@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin'; // https://www.ngxs.io/plugins/storage
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { RouterModule } from '@angular/router';
@@ -43,7 +44,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     HttpClientModule,
     NgxsModule.forRoot([
       PractiseState
-    ]),
+    ]),    
+    NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     ReactiveFormsModule,

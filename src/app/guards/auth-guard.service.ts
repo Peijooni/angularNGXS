@@ -12,13 +12,9 @@ export class AuthGuardService implements CanActivate {
   }
 
   async getTokenFromStore(): Promise<any> {
-    let res: string;
-
-    await this.store.select(state => state.practises.access_token)
+    return await this.store.select(state => state.practises.access_token)
     .pipe(take(1))
-    .toPromise()
-    .then(data => res = data);
-    return res;
+    .toPromise();
   }
 
   async canActivate(): Promise<boolean> {    
@@ -27,7 +23,7 @@ export class AuthGuardService implements CanActivate {
       if(data !== null) {
         return true;
       } else {
-        this._router.navigate(['/login']);
+        this._router.navigate(['/logout']);
         return false;      
       }
     });

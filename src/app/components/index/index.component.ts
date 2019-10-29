@@ -6,12 +6,6 @@ import { DeletePractise, InitPractises, UpdatePractise } from 'src/app/actions/p
 import { MatDialog } from '@angular/material/dialog';
 import { EditPractiseComponent } from '../dialogs/edit-practise/edit-practise.component';
 
-/*
-export interface DialogData {
-  practise: Practise;
-}
-*/
-
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',

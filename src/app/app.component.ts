@@ -17,7 +17,6 @@ export class AppComponent {
 
   ngOnInit() {
     this.loggedIn$ = this.store.select(state => state.practises.access_token);
-    console.log(this.loggedIn$);
   }
 
 }

@@ -43,11 +43,10 @@ export class PractiseState {
     }
 
     async getHttpGETData(): Promise<any> {
-        let res: any;
         try {
-            await this.getTokenFromStore().then(data => {
+            return await this.getTokenFromStore().then(data => {
                 if(data !== null) {
-                    res = axios.get(this.APIEndpoint+'/practises?token='+data);                
+                    return axios.get(this.APIEndpoint+'/practises?token='+data);
                 } else {
                     // We should never go here
                     console.log("Not logged in");
@@ -60,15 +59,13 @@ export class PractiseState {
         catch(err) {
             console.error(err);
         }
-        return res;
     }
 
     async postHttpPOSTData(practise: object): Promise<any> {
-        let res: any;
         try {
-            await this.getTokenFromStore().then(data => {
+            return await this.getTokenFromStore().then(data => {
                 if(data !== null) {
-                    res = axios.post(this.APIEndpoint+'/practises?token='+data, practise);                
+                    return axios.post(this.APIEndpoint+'/practises?token='+data, practise);                
                 } else {
                     // We should never go here
                     console.log("Not logged in");
@@ -81,15 +78,13 @@ export class PractiseState {
         catch(err) {
             console.error(err);
         }
-        return res;
     }
 
     async deleteHttpDELETEData(id: number): Promise<any> {
-        let res: any;
         try {
-            await this.getTokenFromStore().then(data => {
+            return await this.getTokenFromStore().then(data => {
                 if(data !== null) {
-                    res = axios.delete(this.APIEndpoint+'/practises/' + id +'?token='+data);                
+                    return axios.delete(this.APIEndpoint+'/practises/' + id +'?token='+data);                
                 } else {
                     // We should never go here
                     console.log("Not logged in");
@@ -102,15 +97,13 @@ export class PractiseState {
         catch(err) {
             console.error(err);
         }
-        return res;
     }
 
     async updateHttpPUTData(id: number, practise: object): Promise<any> {
-        let res: any;
         try {
-            await this.getTokenFromStore().then(data => {
+            return await this.getTokenFromStore().then(data => {
                 if(data !== null) {
-                    res = axios.put(this.APIEndpoint+'/practises/' + id +'?token='+data, practise);                
+                    return axios.put(this.APIEndpoint+'/practises/' + id +'?token='+data, practise);                
                 } else {
                     // We should never go here
                     console.log("Not logged in");
@@ -123,7 +116,6 @@ export class PractiseState {
         catch(err) {
             console.error(err);
         }
-        return res;
     }
 
     @Action(InitPractises)
@@ -180,7 +172,7 @@ export class PractiseState {
                 throw new Error("no ID returned");
             }
             const state = getState();
-            const filteredArray = state.practises.filter(item => item.id !== id); 
+            const filteredArray = state.practises.filter(item => item.id !== id);
             patchState({
                 practises: [ ...filteredArray ]
             });                  
