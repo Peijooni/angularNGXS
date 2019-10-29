@@ -1,7 +1,25 @@
-<nav>
-  <a routerLink="/app" routerLinkActive="active">App</a>
-  <a routerLink="/login" routerLinkActive="active">Login</a>
-  <a routerLink="/logout" routerLinkActive="active">Logout</a>
-</nav>
+<header>
+  <mat-toolbar>
+    <mat-toolbar-row class="flex">
+      <span class="filler"></span>
+      <span class="title">Harjoituspäiväkirja</span>
+      <span class="logging">
+        <span>
+          <a [hidden]="(loggedIn$ | async) !== null" routerLink="/login" routerLinkActive="active">Login</a>
+        </span>
+        <span >
+          <a [hidden]="(loggedIn$ | async) === null" routerLink="/logout" routerLinkActive="active">Logout</a>
+        </span>    
+        <mat-icon [hidden]="(loggedIn$ | async) === null" aria-hidden="false" 
+        aria-label="User verified icon">verified_user</mat-icon> 
+    </span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>
+
 <router-outlet></router-outlet>
+
+<footer>
+  <p class="copyR">&copy; Copyright 2019, Antti Tanskanen</p>
+</footer>
 

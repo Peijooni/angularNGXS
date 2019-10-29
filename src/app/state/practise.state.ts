@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import axios from 'axios';
 import { Router } from '@angular/router';
+import { environment } from './../../environments/environment';
 
 export interface PractiseStateModel {
     practises: Practise[];
@@ -20,7 +21,10 @@ export interface PractiseStateModel {
 })
 export class PractiseState {
 
-    constructor(private store: Store, private _router: Router){}
+    APIEndpoint: any;
+    constructor(private store: Store, private _router: Router){
+        this.APIEndpoint = environment.APIEndpoint;
+    }
 
     @Selector()
     static getPractises(state: PractiseStateModel) {
@@ -43,7 +47,7 @@ export class PractiseState {
         try {
             await this.getTokenFromStore().then(data => {
                 if(data !== null) {
-                    res = axios.get('http://localhost:3000/practises?token='+data);                
+                    res = axios.get(this.APIEndpoint+'/practises?token='+data);                
                 } else {
                     // We should never go here
                     console.log("Not logged in");
@@ -64,7 +68,7 @@ export class PractiseState {
         try {
             await this.getTokenFromStore().then(data => {
                 if(data !== null) {
-                    res = axios.post('http://localhost:3000/practises?token='+data, practise);                
+                    res = axios.post(this.APIEndpoint+'/practises?token='+data, practise);                
                 } else {
                     // We should never go here
                     console.log("Not logged in");
@@ -85,7 +89,7 @@ export class PractiseState {
         try {
             await this.getTokenFromStore().then(data => {
                 if(data !== null) {
-                    res = axios.delete('http://localhost:3000/practises/' + id +'?token='+data);                
+                    res = axios.delete(this.APIEndpoint+'/practises/' + id +'?token='+data);                
                 } else {
                     // We should never go here
                     console.log("Not logged in");
@@ -106,7 +110,7 @@ export class PractiseState {
         try {
             await this.getTokenFromStore().then(data => {
                 if(data !== null) {
-                    res = axios.put('http://localhost:3000/practises/' + id +'?token='+data, practise);                
+                    res = axios.put(this.APIEndpoint+'/practises/' + id +'?token='+data, practise);                
                 } else {
                     // We should never go here
                     console.log("Not logged in");

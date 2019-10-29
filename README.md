@@ -1,5 +1,5 @@
 # Angular UI
-This project is an UI for backen which can be found here: https://github.com/Peijooni/backend There is also React UI available. IT can be found here: xxxxxxxxxxx
+This project is an UI for backen which can be found here: https://github.com/Peijooni/backend There is also React UI available. IT can be found here: xxxxxxxxxxxx
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
 
@@ -8,6 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * Angular Material
 * Angular Animations
 * HammerJS
+* Axios
 	
 
 ## Development server
