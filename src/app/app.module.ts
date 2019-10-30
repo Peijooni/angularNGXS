@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
-import { NgxsStoragePluginModule } from '@ngxs/storage-plugin'; // https://www.ngxs.io/plugins/storage
+import { NgxsStoragePluginModule, StorageOption } from '@ngxs/storage-plugin'; // https://www.ngxs.io/plugins/storage
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { RouterModule } from '@angular/router';
@@ -18,11 +18,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { PractiseState } from './state/practise.state';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatExpansionModule} from '@angular/material/expansion';
+import {MatExpansionModule} from '@angular/material/expansion'; // https://material.angular.io
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { CompoundComponent } from './components/compound/compound.component';
 import { LoginComponent } from './components/login/login.component';
@@ -45,7 +46,9 @@ import { LogoutComponent } from './components/logout/logout.component';
     NgxsModule.forRoot([
       PractiseState
     ]),
-    NgxsStoragePluginModule.forRoot(),
+    NgxsStoragePluginModule.forRoot({
+      storage: StorageOption.SessionStorage
+    }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     ReactiveFormsModule,
@@ -55,6 +58,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     MatDialogModule,
     MatToolbarModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot([
       { path: 'app', component: CompoundComponent, canActivate: [AuthGuardService],
        pathMatch: 'full' },

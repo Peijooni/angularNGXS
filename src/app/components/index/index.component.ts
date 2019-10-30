@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Practise } from 'src/app/models/Practise';
 import { Store } from '@ngxs/store';
-import { DeletePractise, InitPractises, UpdatePractise } from 'src/app/actions/practise.action';
+import { DeletePractise, InitPractises, UpdatePractise, Loading } from 'src/app/actions/practise.action';
 import { MatDialog } from '@angular/material/dialog';
 import { EditPractiseComponent } from '../dialogs/edit-practise/edit-practise.component';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-index',
@@ -13,6 +14,7 @@ import { EditPractiseComponent } from '../dialogs/edit-practise/edit-practise.co
 })
 export class IndexComponent implements OnInit {
   practises$: Observable<Practise>;
+  loading$: Observable<boolean>;
   constructor(private store: Store, public dialog: MatDialog) {
   }
 
@@ -38,6 +40,8 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new InitPractises());
     this.practises$ = this.store.select(state => state.practises.practises);
+    this.loading$ = this.store.select(state => state.practises.loading)
+    .pipe(tap(value => console.log(value)));
   }
 
 }

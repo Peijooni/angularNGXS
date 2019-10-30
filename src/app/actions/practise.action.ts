@@ -36,3 +36,15 @@ export class LogOut {
 
     constructor() {}
 }
+
+export class Loading {
+    static readonly type = '[Loading] Loading on';
+
+    constructor() {}
+}
+
+export class NotLoading {
+    static readonly type = '[Loading] Loading off';
+
+    constructor() {}
+}

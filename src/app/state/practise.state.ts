@@ -1,6 +1,6 @@
 import { State, Action, StateContext, Selector, Store } from '@ngxs/store';
 import { Practise } from '../models/Practise';
-import { AddPractise, DeletePractise, InitPractises, UpdatePractise, LogIn, LogOut } from '../actions/practise.action';
+import { AddPractise, DeletePractise, InitPractises, UpdatePractise, LogIn, LogOut, Loading, NotLoading } from '../actions/practise.action';
 import { take } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import axios from 'axios';
@@ -10,13 +10,15 @@ import { environment } from './../../environments/environment';
 export interface PractiseStateModel {
     practises: Practise[];
     access_token: string;
+    loading: boolean;
 }
 
 @State<PractiseStateModel>({
     name: 'practises',
     defaults: {
         practises: [],
-        access_token: null
+        access_token: null,
+        loading: false
     }
 })
 export class PractiseState {
@@ -116,12 +118,15 @@ export class PractiseState {
 
     @Action(InitPractises)
     initializeStoreFromREST({patchState}: StateContext<PractiseStateModel>) {
+        this.store.dispatch(new Loading());
         this.getHttpGETData().then((data: any) => {
             if (Array.isArray(data.data) && data.data.length) {
                 patchState({
                     practises: [ ...data.data ]
                 });
+                this.store.dispatch(new NotLoading());
             } else {
+                this.store.dispatch(new NotLoading());
                 console.log('Got no practises from REST server');
             }
             }).catch(err => err.code === 404
@@ -215,6 +220,20 @@ export class PractiseState {
     logOut({patchState}: StateContext<PractiseStateModel>) {
         patchState({
             access_token: null
+        });
+    }
+
+    @Action(Loading)
+    Loading({patchState}: StateContext<PractiseStateModel>) {
+        patchState({
+            loading: true
+        });
+    }
+
+    @Action(NotLoading)
+    NotLoading({patchState}: StateContext<PractiseStateModel>) {
+        patchState({
+            loading: false
         });
     }
 }
