@@ -1,5 +1,5 @@
 <h3 class="title">Practises</h3>
-<mat-progress-spinner *ngIf="(loading$ | async)"mode="indeterminate"></mat-progress-spinner>
+<mat-progress-spinner *ngIf="(loading$ | async)" mode="indeterminate"></mat-progress-spinner>
 <mat-accordion *ngIf="(practises$ | async) && (loading$ | async) === false">
   <mat-expansion-panel *ngFor="let practise of practises$ | async">
     <mat-expansion-panel-header>

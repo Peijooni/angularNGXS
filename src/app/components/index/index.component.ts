@@ -5,7 +5,6 @@ import { Store } from '@ngxs/store';
 import { DeletePractise, InitPractises, UpdatePractise, Loading } from 'src/app/actions/practise.action';
 import { MatDialog } from '@angular/material/dialog';
 import { EditPractiseComponent } from '../dialogs/edit-practise/edit-practise.component';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-index',
@@ -40,8 +39,7 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new InitPractises());
     this.practises$ = this.store.select(state => state.practises.practises);
-    this.loading$ = this.store.select(state => state.practises.loading)
-    .pipe(tap(value => console.log(value)));
+    this.loading$ = this.store.select(state => state.practises.loading);
   }
 
 }

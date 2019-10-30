@@ -51,6 +51,11 @@ export class LoginComponent implements OnInit {
     this.APIEndpoint = environment.APIEndpoint;
     this.activatedRoute.queryParams.subscribe(params => {
       const code = params.code;
+      const state = params.state;
+      if (state !== 'abcddcba12344321') { // security check
+        this.store.dispatch(new LogOut());
+        this.router.navigate(['/login']);
+      }
       if (code !== undefined && code.length) {
         try {
           const token = this.getToken(code);
@@ -80,9 +85,10 @@ export class LoginComponent implements OnInit {
       } else {
         // redirect to github-login
         window.location
-        .replace('http://github.com/login/oauth/authorize?client_id=1159e004bdfd8fd0d590&redirect_uri=http://localhost:4200/login');
+        .replace('http://github.com/login/oauth/authorize?client_id=1159e004bdfd8fd0d590' +
+        '&redirect_uri=http://localhost:4200/login&state=abcddcba12344321');
       }
-  });
+    });
   }
 
 }
