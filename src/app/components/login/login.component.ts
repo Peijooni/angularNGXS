@@ -23,10 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   createUser = async (token: string): Promise<boolean> => {
-    const userId = {
-      userId: token
-    };
-    const res = await axios.post(this.APIEndpoint + '/createUser?token=' + token, userId);
+    const res = await axios.get(this.APIEndpoint + '/createUser?token=' + token);
     return res.data.id;
   }
 
