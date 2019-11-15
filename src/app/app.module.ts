@@ -9,7 +9,7 @@ import { AuthGuardService } from './guards/auth-guard.service';
 
 import { AppComponent } from './app.component';
 import { CreateComponent } from './components/create/create.component';
-import { IndexComponent } from './components/index/index.component';
+import { ShowComponent } from './components/show/show.component';
 import { EditPractiseComponent } from './components/dialogs/edit-practise/edit-practise.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -34,7 +34,7 @@ import { LogoutComponent } from './components/logout/logout.component';
   declarations: [
     AppComponent,
     CreateComponent,
-    IndexComponent,
+    ShowComponent,
     EditPractiseComponent,
     CompoundComponent,
     LoginComponent,

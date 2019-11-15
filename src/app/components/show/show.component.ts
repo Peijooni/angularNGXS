@@ -7,11 +7,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditPractiseComponent } from '../dialogs/edit-practise/edit-practise.component';
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+  selector: 'app-show',
+  templateUrl: './show.component.html',
+  styleUrls: ['./show.component.css']
 })
-export class IndexComponent implements OnInit {
+export class ShowComponent implements OnInit {
   practises$: Observable<Practise>;
   loading$: Observable<boolean>;
   constructor(private store: Store, public dialog: MatDialog) {
