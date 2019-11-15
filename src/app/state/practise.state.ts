@@ -48,7 +48,7 @@ export class PractiseState {
         try {
             return await this.getTokenFromStore().then(data => {
                 if (data !== null) {
-                    return axios.get(this.APIEndpoint + '/practises?token=' + data);
+                    return axios.get(this.APIEndpoint + '/practises?token=' + data, {withCredentials: true});
                 } else {
                     // We should never go here
                     console.log('Not logged in');
@@ -66,7 +66,7 @@ export class PractiseState {
         try {
             return await this.getTokenFromStore().then(data => {
                 if (data !== null) {
-                    return axios.post(this.APIEndpoint + '/practises?token=' + data, practise);
+                    return axios.post(this.APIEndpoint + '/practises?token=' + data, practise, {withCredentials: true});
                 } else {
                     // We should never go here
                     console.log('Not logged in');
@@ -84,7 +84,7 @@ export class PractiseState {
         try {
             return await this.getTokenFromStore().then(data => {
                 if (data !== null) {
-                    return axios.delete(this.APIEndpoint + '/practises/' + id + '?token=' + data);
+                    return axios.delete(this.APIEndpoint + '/practises/' + id + '?token=' + data, {withCredentials: true});
                 } else {
                     // We should never go here
                     console.log('Not logged in');
@@ -102,7 +102,7 @@ export class PractiseState {
         try {
             return await this.getTokenFromStore().then(data => {
                 if (data !== null) {
-                    return axios.put(this.APIEndpoint + '/practises/' + id + '?token=' + data, practise);
+                    return axios.put(this.APIEndpoint + '/practises/' + id + '?token=' + data, practise, {withCredentials: true});
                 } else {
                     // We should never go here
                     console.log('Not logged in');

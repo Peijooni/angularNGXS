@@ -18,12 +18,12 @@ export class LoginComponent implements OnInit {
   }
 
   userExists = async (token: string): Promise<boolean> => {
-    const res = await axios.get(this.APIEndpoint + '/userExists?token=' + token);
+    const res = await axios.get(this.APIEndpoint + '/userExists?token=' + token, {withCredentials: true});
     return res.data.userExists;
   }
 
   createUser = async (token: string): Promise<boolean> => {
-    const res = await axios.get(this.APIEndpoint + '/createUser?token=' + token);
+    const res = await axios.get(this.APIEndpoint + '/createUser?token=' + token, {withCredentials: true});
     return res.data.id;
   }
 
